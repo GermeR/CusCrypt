@@ -5,11 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import web.struct.Personne;
 
 @WebServlet("/servlet/Menu")
 public class Menu extends HttpServlet {
@@ -44,7 +37,7 @@ public class Menu extends HttpServlet {
 			res.sendRedirect("../login.html");
 		} else {
 
-			Personne p = ((Personne) session.getAttribute("personne"));
+		//	Personne p = ((Personne) session.getAttribute("personne"));
 			
 			out.println("<!DOCTYPE html>" + "<html lang=\"fr\">" + "<head>" + "<meta charset=\"utf-8\">"
 					+ "<meta content=\"IE=edge\" http-equiv=\"X-UA-Compatible\">"

@@ -1,19 +1,11 @@
 package web.struct;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  * Gere les connexions et interactions avec la base de donnée
@@ -26,7 +18,7 @@ public class Connexion {
 	private Connection con = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
-	private static Connexion conn = new Connexion("data/Database.db");
+	private static Connexion conn = new Connexion("CusCrypt/data/Database.db");
 
 	public static final Connexion getInstance() {
 		return conn;
@@ -34,6 +26,33 @@ public class Connexion {
 
 	private Connexion(String dBPath) {
 		DBPath = dBPath;
+	}
+
+	public ArrayList<Personne> lister() throws SQLException {
+		this.connect();
+		ArrayList<Personne> pers = new ArrayList<>();
+		String sql = "select * from users ;";
+		while (rs.next())
+			pers.add(new Personne(rs.getString(2), rs.getString(3), rs.getString(1)));
+		this.close();
+		return pers;
+	}
+
+	public boolean addUser(String login, String nom, String prenom, String pass, String repass) throws SQLException {
+		this.connect();
+
+		String sql = "SELECT * FROM users WHERE login='" + login + "';";
+		rs = stmt.executeQuery(sql);
+		if (!login.equals("") && !pass.equals("") && pass.equals(repass)) {
+			if (!rs.next()) {
+				stmt.execute("insert into users(login,nom,prenom,pass) values('" + login + "','" + nom + "','" + prenom
+						+ "','" + pass + "');");
+				this.close();
+				return true;
+			}
+		}
+		this.close();
+		return false;
 	}
 
 	/**
@@ -56,6 +75,8 @@ public class Connexion {
 			System.out.println("Erreur de connection");
 			return false;
 		}
+		System.out.println("STATEMENT : " + stmt.toString());
+		System.out.println("CONNEXION : " + con.toString());
 		return true;
 	}
 
@@ -78,26 +99,23 @@ public class Connexion {
 	/**
 	 * creation de la table
 	 */
-	public void createModeles() {
-		String query = "Create Table MODELES (nom text primary key,path text,date text,id text);";//TODO
+	public void create() {
+		this.connect();
+		String query = "Create Table users(login text primary key, nom text , prenom text, pass text);";
 		try {
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		this.close();
 	}
-	
+
 	public void delete(String n) throws SQLException {
-		String query = "Delete from MODELES where nom = '" + n + "'"; //TODO
-		int i = 3;
+		String query = "Delete from users where nom = '" + n + "'"; // TODO
 		try {
-			i = stmt.executeUpdate(query);
+			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		if (i == 1) {
-			File f = new File("data/" + n);
-			f.delete();
 		}
 	}
 }
