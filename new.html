@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>Creation de Compte</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="page-header">
+			<center>
+				<h1 class="display-1">Meet'N'Roll</h1>
+				<p>
+					Inscrivez vous dès aujourd'hui pour commencer une nouvelle aventure avec des milliers de PNJ partageant votre passion !!
+					(* : champs obligatoires)
+				</p>
+			</center>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 col-xs-offset-3">
+			<form id="signupFrom" action="servlet/singup" method="POST">
+				<div class="form-group">
+					<label class="control-label" for="login">Login *</label>
+					<input id="login" class="form-control" type="text" value="" name="login">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="password">Prenom</label>
+					<input id="password" class="form-control" type="text" value="" name="prenom">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="password">Nom</label>
+					<input id="password" class="form-control" type="text" value="" name="nom">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="password">Date de Naissance</label>
+					<input id="password" class="form-control" type="date" value="" name="naiss">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="password">Mail</label>
+					<input id="password" class="form-control" type="text" value="" name="mail">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="password">Mot de passe *</label>
+					<input id="password" class="form-control" type="password" value="" name="password">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="password">Quoi je n'ai pas bien compris : Quel est votre Mot de Passe ? *</label>
+					<input id="password" class="form-control" type="password" value="" name="repassword">
+				</div>
+				<button class="btn btn-success btn-block" type="submit">Inscrivez Vous !!!</button>
+				<a class="btn btn-default btn-block" href="login.html">Connectez Vous !</a>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
