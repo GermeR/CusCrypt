@@ -17,7 +17,7 @@ public class Personne {
 	}
 
 	public String toStringTD() {
-		return "";//TODO
+		return "<TR><TD>"+login+" : </TD><TD>"+nom+"</TD><TD>"+prenom+"</TD></TR>";
 	}
 	
 	public String getNom() {
@@ -42,5 +42,10 @@ public class Personne {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	@Override
+	public String toString() {
+		return "Personne [nom=" + nom + ", prenom=" + prenom + ", login=" + login + "]";
 	}
 }

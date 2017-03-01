@@ -22,11 +22,12 @@ public class ServletSingUp extends HttpServlet {
 		Connexion con = Connexion.getInstance();
 		HttpSession session = req.getSession();
 		
+		
 		try {
 			if (con.addUser(req.getParameter("login"), req.getParameter("nom"), req.getParameter("prenom"),
 					req.getParameter("password"), req.getParameter("repassword"))) {
 				session.setAttribute("user", new Personne(req.getParameter("nom"),req.getParameter("prenom"),req.getParameter("login")));
-				res.sendRedirect("servlet/lister");
+				res.sendRedirect("lister");
 			} else
 				res.sendRedirect("../new.html");
 		} catch (SQLException e) {

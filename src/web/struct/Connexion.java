@@ -18,7 +18,7 @@ public class Connexion {
 	private Connection con = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
-	private static Connexion conn = new Connexion("CusCrypt/data/Database.db");
+	private static Connexion conn = new Connexion("data/Database.db");
 
 	public static final Connexion getInstance() {
 		return conn;
@@ -28,12 +28,18 @@ public class Connexion {
 		DBPath = dBPath;
 	}
 
-	public ArrayList<Personne> lister() throws SQLException {
+	public ArrayList<Personne> lister() {
 		this.connect();
 		ArrayList<Personne> pers = new ArrayList<>();
 		String sql = "select * from users ;";
-		while (rs.next())
-			pers.add(new Personne(rs.getString(2), rs.getString(3), rs.getString(1)));
+		try {
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				pers.add(new Personne(rs.getString(2), rs.getString(3), rs.getString(1)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		this.close();
 		return pers;
 	}
@@ -111,11 +117,13 @@ public class Connexion {
 	}
 
 	public void delete(String n) throws SQLException {
-		String query = "Delete from users where nom = '" + n + "'"; // TODO
-		try {
+		connect();
+		String query = "Delete from users where login = '"+n+"';";
+				try {
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		close();
 	}
 }
