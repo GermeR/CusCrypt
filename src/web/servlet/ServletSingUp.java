@@ -26,6 +26,7 @@ public class ServletSingUp extends HttpServlet {
 		try {
 			if (con.addUser(req.getParameter("login"), req.getParameter("nom"), req.getParameter("prenom"),
 					req.getParameter("password"), req.getParameter("repassword"))) {
+				
 				session.setAttribute("user", new Personne(req.getParameter("nom"),req.getParameter("prenom"),req.getParameter("login")));
 				res.sendRedirect("lister");
 			} else

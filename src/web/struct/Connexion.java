@@ -43,16 +43,38 @@ public class Connexion {
 		this.close();
 		return pers;
 	}
+	
+	public void truc() throws SQLException {
+		this.connect();
+		CryptIt rsa = new CryptIt();
+		rsa.generateKeyPair();
+		delete("login");
+		addUser("login", null, null, "azerty", "aderty");
+		this.connect();
+		String sql = "select * from users ;";
+		try {
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				System.out.println(rs.getString(4));
+				System.out.println("decrypt :"+rsa.decryptInString(rs.getString(4).getBytes()));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		this.close();
+	}
 
 	public boolean addUser(String login, String nom, String prenom, String pass, String repass) throws SQLException {
 		this.connect();
-
+		CryptIt rsa = new CryptIt();
+		
 		String sql = "SELECT * FROM users WHERE login='" + login + "';";
 		rs = stmt.executeQuery(sql);
 		if (!login.equals("") && !pass.equals("") && pass.equals(repass)) {
 			if (!rs.next()) {
 				stmt.execute("insert into users(login,nom,prenom,pass) values('" + login + "','" + nom + "','" + prenom
-						+ "','" + pass + "');");
+						+ "','" + rsa.crypt(pass.getBytes()) + "');");
+				System.out.println("bonjour le monde"+rsa.crypt(pass.getBytes()));
 				this.close();
 				return true;
 			}
