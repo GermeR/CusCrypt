@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import web.struct.Connexion;
+import web.struct.MyBDD;
 import web.struct.Personne;
 
 @WebServlet("/servlet/lister")
@@ -32,7 +32,7 @@ public class ServletLister extends HttpServlet {
 			if (session.getAttribute("user") == null) {
 				res.sendRedirect("../login.html");
 			} else {
-				Connexion con = Connexion.getInstance();
+				MyBDD con = MyBDD.getInstance();
 				list = con.lister();
 			}
 			out.println(

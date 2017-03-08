@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import web.struct.Connexion;
+import web.struct.MyBDD;
 import web.struct.Personne;
 
 @WebServlet("/servlet/log")
@@ -23,6 +23,15 @@ public class ServletLogin extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.sendRedirect("lister");
+		HttpSession session = req.getSession();
+		MyBDD con = MyBDD.getInstance();
+		if (con.authorize(req.getParameter("login"), req.getParameter("password"))) {
+			System.out.println("bien ouej maggle");
+			Personne p = con.get(req.getParameter("login"));
+			if (p == null)
+				res.sendRedirect("../new.html");
+			else
+				session.setAttribute("personne", p);
+		}
 	}
 }

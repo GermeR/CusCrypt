@@ -1,10 +1,17 @@
 package web.struct;
 
-import java.math.*;
-import java.security.*;
-import java.security.spec.*;
+import java.math.BigInteger;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.SecureRandom;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.sql.SQLException;
-import java.security.interfaces.*;
+import java.util.ArrayList;
+import java.util.Base64;
 
 public class CryptIt {
 	public final static int KEY_SIZE = 2048; // [512..2048]
@@ -46,7 +53,7 @@ public class CryptIt {
 			KeyPair kp = keyPairGen.generateKeyPair();
 			// publicKey = (RSAPublicKey) kp.getPublic();
 			// privateKey = (RSAPrivateKey) kp.getPrivate();
-			LectureEcriture.write((RSAPublicKey) kp.getPublic(),(RSAPrivateKey) kp.getPrivate());
+			LectureEcriture.write((RSAPublicKey) kp.getPublic(), (RSAPrivateKey) kp.getPrivate());
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -69,29 +76,23 @@ public class CryptIt {
 	}
 
 	public static void main(String[] args) {
-		Connexion con = Connexion.getInstance();
-		try {
-			con.truc();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		/*String plaintext = "mot de passe";
-		System.out.println("plaintext = " + plaintext);
-		CryptIt rsa = new CryptIt();
-		
-		rsa.setPublicKey(LectureEcriture.getPublicKey().getEncoded());
-		rsa.setPrivateKey(LectureEcriture.getPrivateKey().getEncoded());
-
-		rsa.generateKeyPair();
-
-		byte[] ciphertext = rsa.crypt(plaintext);
-		System.out.println("ciphertext = " + new BigInteger(ciphertext));
-
-
-		String plaintext2 = rsa.decryptInString(ciphertext);
-		System.out.println("plaintext2 = " + plaintext2);
-		if (!plaintext2.equals(plaintext))
-			System.out.println("Error: plaintext2 != plaintext");*/
+		/*
+		 * Connexion con = Connexion.getInstance(); CryptIt rsa = new CryptIt();
+		 * try { con.addUser("login", null, null, "azerty", "azerty");
+		 * con.authorize("login", "azerty"); } catch (SQLException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 */
+		/*
+		 * byte[] cipher = rsa.crypt("azerty"); System.out.println("cipher :"
+		 * +new String(cipher)); String billCipher = new
+		 * String(Base64.getEncoder().encode(cipher));
+		 * 
+		 * byte[] bill = Base64.getDecoder().decode(billCipher);
+		 * System.out.println("bill :"+new String(bill)); System.out.println(
+		 * "ld :"+rsa.decryptInString(bill));
+		 * 
+		 * System.out.println("azerty".equals(rsa.decryptInString(bill)));
+		 */
 	}
 
 	private BigInteger crypt(BigInteger plaintext) {

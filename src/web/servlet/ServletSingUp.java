@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import web.struct.Connexion;
+import web.struct.MyBDD;
 import web.struct.Personne;
 
 @WebServlet("/servlet/singup")
@@ -19,7 +19,7 @@ public class ServletSingUp extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		Connexion con = Connexion.getInstance();
+		MyBDD con = MyBDD.getInstance();
 		HttpSession session = req.getSession();
 		
 		
