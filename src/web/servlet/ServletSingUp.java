@@ -16,6 +16,11 @@ import web.struct.Personne;
 @WebServlet("/servlet/singup")
 public class ServletSingUp extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 42;
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 

@@ -48,6 +48,7 @@ public class MyBDD {
 	public boolean addUser(String login, String nom, String prenom, String pass, String repass) throws SQLException {
 		this.connect();
 		CryptIt rsa = new CryptIt();
+		System.out.println(pass);
 		String billCipher = new String(Base64.getEncoder().encode(rsa.crypt(pass)));
 
 		String sql = "SELECT * FROM users WHERE login='" + login + "';";

@@ -22,7 +22,7 @@ public class Menu extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static final String NOM = "kwin";
 	static final String MDP = "moi";
-	static final String URL = "jdbc:postgresql://kwinserv.ddns.net:22042/MeetNRoll";
+	static final String URL = "jdbc:postgresql://kwinserv.ddns.net:80/MeetNRoll";
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class Menu extends HttpServlet {
 			res.sendRedirect("../login.html");
 		} else {
 
-		//	Personne p = ((Personne) session.getAttribute("personne"));
+			//Personne p = ((Personne) session.getAttribute("personne"));
 			
 			out.println("<!DOCTYPE html>" + "<html lang=\"fr\">" + "<head>" + "<meta charset=\"utf-8\">"
 					+ "<meta content=\"IE=edge\" http-equiv=\"X-UA-Compatible\">"
@@ -59,7 +59,9 @@ public class Menu extends HttpServlet {
 			out.println("<a href=\"/Meet-N-Roll/servlet/log?delog=true\" class=\"btn btn-primary\"role=\"button\">Deconnexion</a>");
 			out.println("</div>");
 			out.println("</div>");
-			out.println(lectureLogs());
+			String tmp = lectureLogs();
+			System.out.println(tmp);
+			out.println(tmp);
 
 			out.println("</body></html>");
 		}
@@ -74,16 +76,16 @@ public class Menu extends HttpServlet {
 			bf = Files.newBufferedReader(Paths.get("/home/gaut-vador/Programs Files/apache-tomcat-8.5.11/webapps/Meet-N-Roll/README.md"));
 			String ligne;
 			while((ligne= bf.readLine()) != null){
-				if(ligne.startsWith("\t"))
+				if(ligne.substring(0,1).equals("\t"))
 					rez += "<h2>" + ligne + "</h2>";
 				if(ligne.substring(0, 9).matches("[0-9]*[/]*[0-9]*[/]*[0-9]"))
 					rez += "<h3>" + ligne + "</h3>";
-				if(ligne.startsWith("#")){}
+				if(ligne.substring(0,1).equals("#")){}
 				if(ligne.startsWith("["))
 					rez += "<ul>";
-				if(ligne.startsWith("]"))
+				if(ligne.substring(0,1).equals("]"))
 					rez += "</ul>";
-				if(ligne.startsWith("."))
+				if(ligne.substring(0,1).equals("."))
 					rez += "<li>" + ligne + "</li>";
 				
 				else
@@ -94,7 +96,6 @@ public class Menu extends HttpServlet {
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

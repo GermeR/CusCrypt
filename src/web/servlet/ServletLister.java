@@ -18,6 +18,11 @@ import web.struct.Personne;
 
 public class ServletLister extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 42;
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
