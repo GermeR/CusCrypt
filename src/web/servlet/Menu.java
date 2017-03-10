@@ -15,10 +15,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/servlet/Menu")
 public class Menu extends HttpServlet {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	static final String NOM = "kwin";
 	static final String MDP = "moi";
