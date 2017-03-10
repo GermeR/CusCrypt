@@ -32,7 +32,7 @@ public class ServletLogin extends HttpServlet {
 				res.sendRedirect("../new.html");
 			else{
 				session.setAttribute("personne", p);
-				res.sendRedirect("/Meet-N-Roll/servlet/Menu");
+				res.sendRedirect("Menu");
 			}
 		}
 	}

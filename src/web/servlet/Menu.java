@@ -54,9 +54,9 @@ public class Menu extends HttpServlet {
 			out.println("</div>");
 			out.println("<div class=\"row\">");
 			out.println("<div class=\"col-xs-6 col-xs-offset-3\">");
-			out.println("<a href=\"/Meet-N-Roll/servlet/profil\" class=\"btn btn-primary\" role=\"button\">Profil</a>");
-			out.println("<a href=\"/Meet-N-Roll/servlet/listeGens\" class=\"btn btn-primary\"role=\"button\">Liste des gens</a>");
-			out.println("<a href=\"/Meet-N-Roll/servlet/log?delog=true\" class=\"btn btn-primary\"role=\"button\">Deconnexion</a>");
+			out.println("<a href=\"profil\" class=\"btn btn-primary\" role=\"button\">Profil</a>");
+			out.println("<a href=\"listeGens\" class=\"btn btn-primary\"role=\"button\">Liste des gens</a>");
+			out.println("<a href=\"log?delog=true\" class=\"btn btn-primary\"role=\"button\">Deconnexion</a>");
 			out.println("</div>");
 			out.println("</div>");
 			String tmp = lectureLogs();

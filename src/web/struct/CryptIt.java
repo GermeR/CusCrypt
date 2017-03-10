@@ -21,7 +21,7 @@ public class CryptIt {
 	public CryptIt() {
 		publicKey = (RSAPublicKey) LectureEcriture.getPublicKey();
 		privateKey = (RSAPrivateKey) LectureEcriture.getPrivateKey();
-		System.out.println(publicKey);
+		//System.out.println(publicKey);
 	}
 
 	public void setPublicKey(byte[] publicKeyData) {
@@ -76,9 +76,7 @@ public class CryptIt {
 	}
 
 	public static void main(String[] args) {
-		CryptIt crypt = new CryptIt();
-		crypt.generateKeyPair();
-		/*MyBDD con = MyBDD.getInstance();
+		MyBDD con = MyBDD.getInstance();
 		CryptIt rsa = new CryptIt();
 		try {
 			con.addUser("login", null, null, "azerty", "azerty");
@@ -88,15 +86,14 @@ public class CryptIt {
 		}
 
 		byte[] cipher = rsa.crypt("azerty");
-		System.out.println("cipher :" + new String(cipher));
+		//System.out.println("cipher :" + new String(cipher));
 		String billCipher = new String(Base64.getEncoder().encode(cipher));
-
+		//System.out.println(billCipher);
 		byte[] bill = Base64.getDecoder().decode(billCipher);
-		System.out.println("bill :" + new String(bill));
+		//System.out.println("bill :" + new String(bill));
 		System.out.println("ld :" + rsa.decryptInString(bill));
 
-		System.out.println("azerty".equals(rsa.decryptInString(bill)));
-*/
+		System.out.println("egal ? "+"azerty".equals(rsa.decryptInString(bill)));
 	}
 
 	private BigInteger crypt(BigInteger plaintext) {
