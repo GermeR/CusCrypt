@@ -60,9 +60,9 @@ public class ServletProfil extends HttpServlet {
 					
 					out.println("<div class=\"menu\">");
 					out.println("<ul class=\"onglets\">");
-					out.println("<li><a href=\"/Meet-N-Roll/servlet/Menu\"> Menu </a></li>");
-					out.println("<li><a class=\"active\" href=\"/Meet-N-Roll/servlet/profil\"> Profil </a></li>");
-					out.println("<li><a href=\"/Meet-N-Roll/servlet/log?delog=true\"> Deconnexion </a></li>");
+					out.println("<li><a href=\"Menu\"> Menu </a></li>");
+					out.println("<li><a class=\"active\" href=\"profil\"> Profil </a></li>");
+					out.println("<li><a href=\"log?delog=true\"> Deconnexion </a></li>");
 					out.println("</ul>");
 					out.println("</div>");
 					

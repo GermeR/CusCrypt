@@ -33,7 +33,7 @@ public class ServletSingUp extends HttpServlet {
 					req.getParameter("password"), req.getParameter("repassword"))) {
 				
 				session.setAttribute("user", new Personne(req.getParameter("nom"),req.getParameter("prenom"),req.getParameter("login")));
-				res.sendRedirect("lister");
+				res.sendRedirect("Menu");
 			} else
 				res.sendRedirect("../new.html");
 		} catch (SQLException e) {
