@@ -17,10 +17,7 @@ import javax.servlet.http.HttpSession;
 public class Menu extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	static final String NOM = "kwin";
-	static final String MDP = "moi";
-	static final String URL = "jdbc:postgresql://kwinserv.ddns.net:80/MeetNRoll";
-
+	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		PrintWriter out = res.getWriter();
@@ -56,9 +53,9 @@ public class Menu extends HttpServlet {
 			out.println("<a href=\"log?delog=true\" class=\"btn btn-primary\"role=\"button\">Deconnexion</a>");
 			out.println("</div>");
 			out.println("</div>");
-			String tmp = lectureLogs();
-			System.out.println(tmp);
-			out.println(tmp);
+			//String tmp = lectureLogs();
+			//System.out.println(tmp);
+			//out.println(tmp);
 
 			out.println("</body></html>");
 		}

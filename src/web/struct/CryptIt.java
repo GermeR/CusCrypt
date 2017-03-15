@@ -21,10 +21,9 @@ public class CryptIt {
 	public CryptIt() {
 		publicKey = (RSAPublicKey) LectureEcriture.getPublicKey();
 		privateKey = (RSAPrivateKey) LectureEcriture.getPrivateKey();
-		//System.out.println(publicKey);
 	}
 
-	public void setPublicKey(byte[] publicKeyData) {
+	private void setPublicKey(byte[] publicKeyData) {
 		try {
 			X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyData);
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
@@ -35,7 +34,7 @@ public class CryptIt {
 		}
 	}
 
-	public void setPrivateKey(byte[] privateKeyData) {
+	private void setPrivateKey(byte[] privateKeyData) {
 		try {
 			PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(privateKeyData);
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
@@ -78,13 +77,17 @@ public class CryptIt {
 	public static void main(String[] args) {
 		MyBDD con = MyBDD.getInstance();
 		CryptIt rsa = new CryptIt();
+		con.reEnCrypt(rsa.getPrivateKey(),rsa.getPrivateKey(),rsa.getPublicKey());
+	
+		
+		/*
 		try {
 			con.addUser("login", null, null, "azerty", "azerty");
 			con.authorize("login", "azerty");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
 		byte[] cipher = rsa.crypt("azerty");
 		//System.out.println("cipher :" + new String(cipher));
 		String billCipher = new String(Base64.getEncoder().encode(cipher));
@@ -93,7 +96,7 @@ public class CryptIt {
 		//System.out.println("bill :" + new String(bill));
 		System.out.println("ld :" + rsa.decryptInString(bill));
 
-		System.out.println("egal ? "+"azerty".equals(rsa.decryptInString(bill)));
+		System.out.println("egal ? "+"azerty".equals(rsa.decryptInString(bill)));*/
 	}
 
 	private BigInteger crypt(BigInteger plaintext) {

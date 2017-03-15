@@ -1,12 +1,14 @@
 package web.struct;
 
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.sql.Connection;
-import java.util.Base64;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Base64;
 
 /**
  * Gere les connexions et interactions avec la base de donnée
@@ -45,10 +47,48 @@ public class MyBDD {
 		return pers;
 	}
 
+	public boolean reEnCrypt(RSAPrivateKey pkKeyOld, RSAPrivateKey pkKeyNew, RSAPublicKey pbKeyNew) {
+		connect();
+		ArrayList<Personne> pers = new ArrayList<Personne>();
+		CryptIt rsa = new CryptIt();
+		String sql = "select * from users ;";
+		String billCipher = "";
+		try {
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				billCipher = rs.getString(4);
+				byte[] bill = Base64.getDecoder().decode(billCipher);
+				String cipher = rsa.decryptInString(bill);
+				pers.add(new Personne(rs.getString(1), rs.getString(2), rs.getString(3), cipher));
+			}
+			for (Personne p : pers) {
+				alterUser(p,pbKeyNew);
+			}
+		} catch (SQLException e) {
+			return false;
+		}
+		close();
+		return false;
+	}
+
+	private boolean alterUser(Personne pers, RSAPublicKey pbKey) throws SQLException {
+		String login = pers.getLogin();
+		String pass = pers.getPass();
+		this.connect();
+		CryptIt rsa = new CryptIt();
+		String billCipher = new String(Base64.getEncoder().encode(rsa.crypt(pass)));
+		String sql = "";
+		if (!login.equals("") && !pass.equals("")) {
+			sql = "update users set pass = '" + new String(Base64.getEncoder().encode(rsa.crypt(pass))) + "' where login ='" + login + "';";
+			stmt.execute(sql);
+			return true;
+		}
+		return false;
+	}
+
 	public boolean addUser(String login, String nom, String prenom, String pass, String repass) throws SQLException {
 		this.connect();
 		CryptIt rsa = new CryptIt();
-		System.out.println(pass);
 		String billCipher = new String(Base64.getEncoder().encode(rsa.crypt(pass)));
 
 		String sql = "SELECT * FROM users WHERE login='" + login + "';";
@@ -84,25 +124,20 @@ public class MyBDD {
 		connect();
 		if (pass == null || login == null)
 			return false;
-		// System.out.println("login"+login+"pass"+pass);
 		CryptIt rsa = new CryptIt();
 		String sql = "select pass from users where login ='" + login + "';";
 		String billCipher = "";
 		try {
 			rs = stmt.executeQuery(sql);
-			// System.out.println("try");
 			if (rs.next()) {
 				billCipher = rs.getString(1);
 			} else
 				return false;
-			// System.out.println("fin");
 		} catch (SQLException e) {
 			return false;
 		}
 		byte[] bill = Base64.getDecoder().decode(billCipher);
 		String cipher = rsa.decryptInString(bill);
-		// System.out.println("is " + pass + " equals to "+cipher +" ? : "
-		// +pass.equals(cipher));
 		close();
 		return pass.equals(cipher);
 	}

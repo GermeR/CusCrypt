@@ -22,18 +22,21 @@ public class ServletLogin extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println("service");
 		HttpSession session = req.getSession();
 		MyBDD con = MyBDD.getInstance();
+		Personne p = null;
 		if (con.authorize(req.getParameter("login"), req.getParameter("password"))) {
-			//System.out.println("bien ouej maggle");
-			Personne p = con.get(req.getParameter("login"));
-			
-			if (p == null)
-				res.sendRedirect("../new.html");
-			else{
-				session.setAttribute("personne", p);
-				res.sendRedirect("Menu");
-			}
+			System.out.println("bien ouej maggle");
+			p = con.get(req.getParameter("login"));
+		}
+		if (p == null) {
+			System.out.println("if");
+			res.sendRedirect("../new.html");
+		} else {
+			System.out.println("ELSE");
+			session.setAttribute("personne", p);
+			res.sendRedirect("Menu");
 		}
 	}
 }

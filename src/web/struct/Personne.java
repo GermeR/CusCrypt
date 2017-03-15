@@ -9,6 +9,7 @@ public class Personne {
 	private String nom;
 	private String mail;
 	private Date naiss;
+	private String pass;
 	
 	public Personne() {
 	}
@@ -28,14 +29,23 @@ public class Personne {
 		this.prenom = prenom;
 		this.login = login;
 	}
+	
+	public Personne(String login,  String nom, String prenom, String pass) {
+		super();
+		this.login = login;
+		this.prenom = prenom;
+		this.nom = nom;
+		this.pass = pass;
+	}
 
 	public String toStringTD() {
 		return "<TR><TD>"+login+" : </TD><TD>"+nom+"</TD><TD>"+prenom+"</TD></TR>";
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Personne [nom=" + nom + ", prenom=" + prenom + ", login=" + login + "]";
+		return "Personne [login=" + login + ", prenom=" + prenom + ", nom=" + nom + ", mail=" + mail + ", naiss="
+				+ naiss + ", pass=" + pass + "]";
 	}
 
 	public String getLogin() {
@@ -67,5 +77,12 @@ public class Personne {
 	}
 	public void setNaiss(Date naiss) {
 		this.naiss = naiss;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	public String getPass() {
+		return pass;
 	}
 }
