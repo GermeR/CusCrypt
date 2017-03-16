@@ -15,7 +15,6 @@ import web.struct.MyBDD;
 import web.struct.Personne;
 
 @WebServlet("/servlet/lister")
-
 public class ServletLister extends HttpServlet {
 
 	/**
@@ -24,31 +23,25 @@ public class ServletLister extends HttpServlet {
 	private static final long serialVersionUID = 42;
 
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
 
 		HttpSession session = req.getSession();
 		PrintWriter out = res.getWriter();
-
-		if (req.getParameter("deco") != null) {
-			session.invalidate();
+		MyBDD con = MyBDD.getInstance();
+		ArrayList<Personne> list = con.lister();
+		if (session.getAttribute("personne") == null) {
 			res.sendRedirect("../login.html");
 		} else {
-			ArrayList<Personne> list = null;
-			if (session.getAttribute("user") == null) {
-				res.sendRedirect("../login.html");
-			} else {
-				MyBDD con = MyBDD.getInstance();
-				list = con.lister();
-			}
-			out.println(
-					"<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta content=\"IE=edge\" http-equiv=\"X-UA-Compatible\"><meta content=\"width=device-width, initial-scale=1\" name=\"viewport\"><title>Liste Des utilisateurs</title><link rel=\"stylesheet\"href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"></head><body>");
-			out.println("<table class=\"table-bordered\">");
-			out.println("<th> Login </th><th> Nom </th><th> Prenom </th>");
-			for (Personne per : list)
-				out.println(per.toStringTD());
-			out.println("</table>");
-			out.println("<a href=/CusCrypt/servlet/lister?deco=1> Deconnexion </a>");
-			out.println("</body></html>");
+			list = con.lister();
 		}
+		out.println("<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta content=\"IE=edge\" http-equiv=\"X-UA-Compatible\"><meta content=\"width=device-width, initial-scale=1\" name=\"viewport\"><title>Liste Des utilisateurs</title><link rel=\"stylesheet\"href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"></head><body>");
+		out.println("<table class=\"table-bordered\">");
+		out.println("<th> Login </th><th> Nom </th><th> Prenom </th>");
+		for (Personne per : list)
+			out.println(per.toStringTD());
+		out.println("</table>");
+		out.println("<a href=/CusCrypt/servlet/lister?deco=1> Deconnexion </a>");
+		out.println("</body></html>");
 	}
 }
